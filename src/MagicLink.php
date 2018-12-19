@@ -53,6 +53,9 @@ class MagicLink
 
             if ($user) {
                 app()->make('auth')->loginUsingId($magicLink->user_id);
+                
+                $magicLink->used += 1;
+                $magicLink->save();
 
                 if ($magicLink->redirect_url !== null && $magicLink->redirect_url != '') {
                     return $magicLink->redirect_url;
